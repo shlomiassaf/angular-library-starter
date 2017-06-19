@@ -1,0 +1,1 @@
+{"version":3,"sources":["../../../../src/@corp/rare/src/rare.ng-flat.ts"],"names":[],"mappings":"AAAA;;GAEG;AAEH,OAAO,EAAC,WAAW,EAAC,UAAU,EAAC,MAAM,SAAS,CAAC","file":"rare.ng-flat.js","sourceRoot":"","sourcesContent":["/**\n * Generated bundle index. Do not edit.\n */\n\nexport {RareService,RareModule} from './index';\n"]}

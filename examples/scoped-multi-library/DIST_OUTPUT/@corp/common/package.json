@@ -1,0 +1,27 @@
+{
+  "name": "@corp/common",
+  "version": "1.0.0",
+  "description": "Common Library",
+  "keywords": [
+    "corp",
+    "common"
+  ],
+  "author": "Shlomi Assaf <shlomiasafk@gmail.com>",
+  "homepage": "https://github.com/shlomiassaf/angular-library-starter",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/shlomiassaf/angular-library-starter.git"
+  },
+  "bugs": {
+    "url": "https://github.com/shlomiassaf/angular-library-starter/issues"
+  },
+  "engines": {
+    "node": ">= 4.2.1",
+    "npm": ">= 3"
+  },
+  "main": "bundle/common.rollup.umd.js",
+  "module": "bundle/common.es5.js",
+  "es2015": "bundle/common.js",
+  "typings": "src/common.ng-flat.d.ts"
+}

@@ -34,7 +34,7 @@ There are 3 libraries and 2 extensions:
 #### Features implemented:
   - Extensions / Plugins
 
-  See [examples/extensions/src/@corp/core](core package)
+  See [CORE PACKAGE EXAMPLE](examples/extensions/src/@corp/core)
 
   - Custom entry file
 

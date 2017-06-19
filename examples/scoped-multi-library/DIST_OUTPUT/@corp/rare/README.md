@@ -64,11 +64,6 @@ You can now make changes to the demo app or the libraries and see it live
 in your browser.
 
 
-## Learn by example:
-Go to [Examples](examples)
-
-> The `DIST_OUTPUT` folder shows the output of the compilation.
-
 ## Library commands
 ---
  NPM scripts as defined in **angular-starter** did not change.
