@@ -20,11 +20,6 @@ export function jestConfig(config): void {
 }
 
 export function tsconfig(config) {
-  if (!config.compilerOptions.paths) {
-    config.compilerOptions.paths = {};
-  }
-  config.compilerOptions.paths['@*'] = ['demo/modules/@*'];
-
   config.angularCompilerOptions.strictMetadataEmit = false;
 
   if (config.external) {
