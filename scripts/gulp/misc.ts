@@ -17,10 +17,10 @@ This includes adding, removing or changing a package name. Changing the top-leve
     util.tryRunHook('./', 'tsconfig', tsConfig);
     jsonfile.writeFileSync(util.root('tsconfig.json'), tsConfig, {spaces: 2});
 
-    const jestConfig = jsonfile.readFileSync(util.root('jest.base-config.json'));
+    const jestConfig = jsonfile.readFileSync(util.root('jest.library.config.json'));
     jestConfig.moduleNameMapper = util.jestAlias();
     util.tryRunHook('./', 'jestConfig', jestConfig);
-    jsonfile.writeFileSync(util.root('jest.base-config.json'), jestConfig, {spaces: 2});
+    jsonfile.writeFileSync(util.root('jest.library.config.json'), jestConfig, {spaces: 2});
   }
 
 }
