@@ -1,0 +1,28 @@
+{
+  "name": "@corp/core",
+  "version": "1.0.0",
+  "description": "Core Library",
+  "keywords": [
+    "corp",
+    "core",
+    "core-plus"
+  ],
+  "author": "Shlomi Assaf <shlomiasafk@gmail.com>",
+  "homepage": "https://github.com/shlomiassaf/angular-library-starter",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/shlomiassaf/angular-library-starter.git"
+  },
+  "bugs": {
+    "url": "https://github.com/shlomiassaf/angular-library-starter/issues"
+  },
+  "engines": {
+    "node": ">= 4.2.1",
+    "npm": ">= 3"
+  },
+  "main": "bundle/core.rollup.umd.js",
+  "module": "bundle/core.es5.js",
+  "es2015": "bundle/core.js",
+  "typings": "src/core.ng-flat.d.ts"
+}

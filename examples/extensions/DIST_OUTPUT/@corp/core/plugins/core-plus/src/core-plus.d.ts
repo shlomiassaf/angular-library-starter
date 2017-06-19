@@ -1,0 +1,1 @@
+export { CorePlusModule } from './module';

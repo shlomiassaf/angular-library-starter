@@ -1,0 +1,1 @@
+{"__symbolic":"module","version":3,"metadata":{"CoreTestMocker":{"__symbolic":"class","members":{"howMuchIsOnePlusOne":[{"__symbolic":"method"}]}}},"origins":{"CoreTestMocker":"./index"},"importAs":"@corp/core/testing"}

@@ -1,0 +1,1 @@
+{"version":3,"sources":["../../../../../../src/@corp/core/plugins/core-plus/src/core-plus.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,cAAA,EAAe,MAAA,UAAA,CAAA","file":"core-plus.js","sourceRoot":"","sourcesContent":["export { CorePlusModule } from './module';\n"]}

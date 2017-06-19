@@ -1,0 +1,27 @@
+{
+  "name": "@corp/rare",
+  "version": "1.0.0",
+  "description": "Rare Library",
+  "keywords": [
+    "corp",
+    "rare"
+  ],
+  "author": "Shlomi Assaf <shlomiasafk@gmail.com>",
+  "homepage": "https://github.com/shlomiassaf/angular-library-starter",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/shlomiassaf/angular-library-starter.git"
+  },
+  "bugs": {
+    "url": "https://github.com/shlomiassaf/angular-library-starter/issues"
+  },
+  "engines": {
+    "node": ">= 4.2.1",
+    "npm": ">= 3"
+  },
+  "main": "bundle/rare.rollup.umd.js",
+  "module": "bundle/rare.es5.js",
+  "es2015": "bundle/rare.js",
+  "typings": "src/rare.ng-flat.d.ts"
+}

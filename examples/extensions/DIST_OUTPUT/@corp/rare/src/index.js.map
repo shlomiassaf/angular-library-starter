@@ -1,0 +1,1 @@
+{"version":3,"sources":["../../../../src/@corp/rare/src/index.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,WAAA,EAAY,MAAA,gBAAA,CAAA;AACrB,OAAO,EAAE,UAAA,EAAW,MAAA,UAAA,CAAA","file":"index.js","sourceRoot":"","sourcesContent":["export { RareService } from './rare.service';\nexport { RareModule } from './module';"]}

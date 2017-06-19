@@ -1,0 +1,28 @@
+{
+  "name": "@corp/core/plugins/core-plus",
+  "version": "1.0.0",
+  "description": "An Angular Library Starter kit.",
+  "keywords": [
+    "angular",
+    "webpack",
+    "typescript"
+  ],
+  "author": "Shlomi Assaf <shlomiasafk@gmail.com>",
+  "homepage": "https://github.com/shlomiassaf/angular-library-starter",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/shlomiassaf/angular-library-starter.git"
+  },
+  "bugs": {
+    "url": "https://github.com/shlomiassaf/angular-library-starter/issues"
+  },
+  "engines": {
+    "node": ">= 4.2.1",
+    "npm": ">= 3"
+  },
+  "main": "bundle/core-core-plus.rollup.umd.js",
+  "module": "bundle/core-core-plus.es5.js",
+  "es2015": "bundle/core-core-plus.js",
+  "typings": "src/core-core-plus.ng-flat.d.ts"
+}

@@ -1,0 +1,1 @@
+{"version":3,"sources":["../../../../src/@corp/common/src/common.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,aAAA,EAAc,MAAA,kBAAA,CAAA;AACvB,OAAO,EAAE,YAAA,EAAa,MAAA,UAAA,CAAA","file":"common.js","sourceRoot":"","sourcesContent":["export { CommonService } from './common.service';\nexport { CommonModule } from './module';"]}

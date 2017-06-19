@@ -1,0 +1,6 @@
+{
+  "libConfig": {
+    "scope": "@corp",
+    "packages": [ "core", "common", "rare" ]
+  }
+}

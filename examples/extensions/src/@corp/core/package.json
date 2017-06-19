@@ -1,0 +1,19 @@
+{
+  "version": "1.0.0",
+  "description": "Core Library",
+  "keywords": [ "corp", "core", "core-plus"],
+  "libConfig": {
+    "entry": "core",
+    "inlineResources": true,
+    "libExtensions": [
+      {
+        "name": "core-plus",
+        "dir": "plugins/core-plus",
+        "entry": "core-plus.ts"
+      },
+      {
+        "name": "testing"
+      }
+    ]
+  }
+}

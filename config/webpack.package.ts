@@ -63,10 +63,11 @@ module.exports = function(metadata: PackageMetadata) {
 
     resolve: {
       extensions: ['.ts', '.js'],
-      alias: webpackAlias(metadata.parent
+      modules: [root('src'), root('node_modules')],
+      alias: Object.assign(webpackAlias(), webpackAlias(metadata.parent
         ? metadata.parent.dirName + '/' + metadata.extension.dir
         : metadata.dirName
-      )
+      ))
     },
 
     entry,
