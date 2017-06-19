@@ -8,7 +8,7 @@ export class Gulpfile {
   @util.GulpClass.Task({
     name: 'misc:syncConfig',
     desc: `Sync the main tsconfig file (tsconfig.json) and JEST configuration file with paths information.
-This is required after each change to a package configuration the results in a file structure change.  
+This is required after each change to a package configuration that results in a file structure change.  
 This includes adding, removing or changing a package name. Changing the top-level scope, etc..`
   })
   syncConfig() {

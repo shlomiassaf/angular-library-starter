@@ -5,7 +5,7 @@ import * as jsonfile from 'jsonfile';
 
 import * as util from '../util';
 
-const INTERNAL_PKGJSON_KETS = [
+const INTERNAL_PKGJSON_KEYS = [
   'libConfig',
   'libExtensions'
 ];
@@ -13,16 +13,14 @@ const INTERNAL_PKGJSON_KETS = [
 const PKGJSON_KEYS_TO_DELETE = [
   'scripts',
   'devDependencies'
-].concat(INTERNAL_PKGJSON_KETS);
+].concat(INTERNAL_PKGJSON_KEYS);
 
-gulp.task('manifest', function () {
+gulp.task('!manifest', function () {
   const meta = util.currentPackage();
   const copyInst = util.getCopyInstruction(meta);
 
   const pkgDest = Path.join(copyInst.to, 'package.json');
   const pkgJson = jsonfile.readFileSync(util.root('package.json'));
-
-  PKGJSON_KEYS_TO_DELETE.forEach( k => { delete pkgJson[k] });
 
   const localPackageJsonPath = util.root(util.FS_REF.SRC_CONTAINER, meta.dir, 'package.json');
   if (fs.existsSync(localPackageJsonPath)) {
@@ -31,6 +29,8 @@ gulp.task('manifest', function () {
       jsonfile.readFileSync(localPackageJsonPath)
     )
   }
+
+  PKGJSON_KEYS_TO_DELETE.forEach( k => { delete pkgJson[k] });
 
   pkgJson.name = meta.dir;
   pkgJson.main = `${util.FS_REF.BUNDLE_DIR}/${meta.umd}.rollup.umd.js`;

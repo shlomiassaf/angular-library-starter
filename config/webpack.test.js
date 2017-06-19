@@ -125,7 +125,7 @@ module.exports = function (options) {
         {
           test: /\.json$/,
           loader: 'json-loader',
-          exclude: [helpers.root('src/index.html')]
+          exclude: [helpers.root('src/demo/index.html')]
         },
 
         /**
@@ -137,7 +137,7 @@ module.exports = function (options) {
         {
           test: /\.css$/,
           loader: ['to-string-loader', 'css-loader'],
-          exclude: [helpers.root('src/index.html')]
+          exclude: [helpers.root('src/demo/index.html')]
         },
 
         /**
@@ -148,7 +148,7 @@ module.exports = function (options) {
         {
             test: /\.scss$/,
             loader: ['raw-loader', 'sass-loader'],
-            exclude: [helpers.root('src/index.html')]
+            exclude: [helpers.root('src/demo/index.html')]
         },
 
         /**
@@ -160,7 +160,7 @@ module.exports = function (options) {
         {
           test: /\.html$/,
           loader: 'raw-loader',
-          exclude: [helpers.root('src/index.html')]
+          exclude: [helpers.root('src/demo/index.html')]
         },
 
         /**

@@ -17,7 +17,7 @@ const convert = require('convert-source-map');
 @util.GulpClass.Gulpclass()
 export class Gulpfile {
 
-  @util.GulpClass.Task('build:webpack')
+  @util.GulpClass.Task('!build:webpack')
   buildWebpack() {
     const config = util.resolveWebpackConfig(util.root(util.FS_REF.WEBPACK_CONFIG), util.currentPackage());
 
@@ -79,7 +79,7 @@ export class Gulpfile {
       });
   }
 
-  @util.GulpClass.Task('build:rollup:fesm')
+  @util.GulpClass.Task('!build:rollup:fesm')
   buildRollupFesm() {
     const meta = util.currentPackage();
     const copyInst = util.getCopyInstruction(meta);
@@ -101,7 +101,7 @@ export class Gulpfile {
     }).then( () => sorcery.load(Path.join(copyInst.toBundle, `${meta.umd}.js`)).then( chain => chain.write() ));
   }
 
-  @util.GulpClass.Task('build:fesm:es5')
+  @util.GulpClass.Task('!build:fesm:es5')
   buildFesmEs5() {
     const meta = util.currentPackage();
     const copyInst = util.getCopyInstruction(meta);
@@ -141,7 +141,7 @@ export class Gulpfile {
     // return sorcery.load(Path.join(copyInst.toBundle, `${meta.umd}.es5.js`)).then( chain => chain.write() );
   }
 
-  @util.GulpClass.Task('build:rollup:umd') // or use provided callback instead
+  @util.GulpClass.Task('!build:rollup:umd') // or use provided callback instead
   buildRollupUmd() {
     const meta = util.currentPackage();
 
@@ -167,33 +167,13 @@ export class Gulpfile {
     }).then( () => sorcery.load(Path.join(copyInst.toBundle, `${meta.umd}.rollup.umd.js`)).then( chain => chain.write() ));
   }
 
-  @util.GulpClass.Task()
-  sourcemaps() {
-    const meta = util.currentPackage();
-
-    const copyInst = util.getCopyInstruction(meta);
-
-    const files = [`${meta.umd}.es5.js`, `${meta.umd}.rollup.umd.js`];
-    const mapSource = () => {
-      if (files.length > 0) {
-        return sorcery.load(Path.join(copyInst.toBundle, files.shift()))
-          .then( chain => chain.write() )
-          .then( () => mapSource() );
-      } else {
-        return Promise.resolve(false);
-      }
-    };
-
-    return mapSource();
-  }
-
-  @util.GulpClass.Task()
+  @util.GulpClass.Task('!minifyAndGzip')
   minifyAndGzip(done) {
     try {
       const meta = util.currentPackage();
       const copyInst = util.getCopyInstruction(meta);
 
-      // util.minifyAndGzip(copyInst.toBundle, `${meta.umd}.webpack.umd`);
+      util.minifyAndGzip(copyInst.toBundle, `${meta.umd}.webpack.umd`);
       util.minifyAndGzip(copyInst.toBundle, `${meta.umd}.rollup.umd`);
       done()
     } catch (err) {
@@ -201,7 +181,7 @@ export class Gulpfile {
     }
   }
 
-  @util.GulpClass.Task()
+  @util.GulpClass.Task(`!pureAnnotation`)
   pureAnnotation(done) {
     try {
       const meta = util.currentPackage();
