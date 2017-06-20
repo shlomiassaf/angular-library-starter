@@ -177,5 +177,5 @@ export type Promisify<T> = { promise: Promise<T>; resolve: (value?: T) => void; 
 export function promisify<T>(): Promisify<T> {
   let resolve, reject;
   const promise = new Promise( (rs, rj) => { resolve = rs; reject = rj; });
-  return { promise, resolve, reject };
+  return <any>{ promise, resolve, reject };
 }

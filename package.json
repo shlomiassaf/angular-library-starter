@@ -38,14 +38,12 @@
     "github-deploy": "npm run github-deploy:dev",
     "gulp": "gulp",
     "jest": "jest",
-
     "lib:build": "gulp build",
     "lib:build:sim": "gulp build && npm run build:aot:prod -- --env.sim",
     "lib:test": "npm run jest -- --config jest.library.config.json",
     "lib:test:watch": "npm run jest -- --config jest.library.config.json --watch",
     "lib:start:sim": "gulp build && npm run server:dev -- --env.sim",
     "lib:sync": "gulp misc:syncConfig",
-
     "lint": "npm run tslint \"src/**/*.ts\"",
     "node": "node",
     "postinstall": "npm run webdriver:update",
@@ -181,7 +179,7 @@
     "tslint": "~4.5.1",
     "tslint-loader": "^3.5.2",
     "typedoc": "^0.7.1",
-    "typescript": "^2.3.4",
+    "typescript": "2.4.0",
     "uglify-js": "^3.0.4",
     "url-loader": "^0.5.8",
     "vinyl-buffer": "^1.0.0",
