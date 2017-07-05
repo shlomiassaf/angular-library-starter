@@ -1,5 +1,5 @@
 // taken from https://github.com/angular/material2/blob/master/tools/gulp/packaging/metadata-inlining.ts
-import {readFileSync, writeFileSync} from 'fs';
+import {readFileSync, writeFileSync, existsSync} from 'fs';
 import {basename} from 'path';
 import {sync as glob} from 'glob';
 import {join} from 'path';
@@ -21,7 +21,9 @@ export function inlineMetadataResources(metadata: any, componentResources: Map<s
     metadata.styles = [];
     for (const styleUrl of metadata.styleUrls) {
       const fullResourcePath = componentResources.get(basename(styleUrl));
-      metadata.styles.push(readFileSync(fullResourcePath, 'utf-8'));
+      
+      if ( fullResourcePath && existsSync(fullResourcePath))
+        metadata.styles.push(readFileSync(fullResourcePath, 'utf-8'));
     }
     delete metadata.styleUrls;
   }
