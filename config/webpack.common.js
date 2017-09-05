@@ -50,6 +50,7 @@ const METADATA = {
  */
 module.exports = function (options) {
   const isProd = options.env === 'production';
+  const isSim = options.hasOwnProperty('sim');
 
   const webpackConfig = {
 
@@ -260,17 +261,17 @@ module.exports = function (options) {
       /**
        * This enables tree shaking of the vendor modules
        */
-      // new CommonsChunkPlugin({
-      //   name: 'vendor',
-      //   chunks: ['main'],
-      //   minChunks: module => /node_modules/.test(module.resource)
-      // }),
+      new CommonsChunkPlugin({
+        name: 'vendor',
+        chunks: ['main'],
+        minChunks: module => /node_modules/.test(module.resource)
+      }),
       /**
        * Specify the correct order the scripts will be injected in
        */
-      // new CommonsChunkPlugin({
-      //   name: ['polyfills', 'vendor'].reverse()
-      // }),
+      new CommonsChunkPlugin({
+        name: ['polyfills', 'vendor'].reverse()
+      }),
       // new CommonsChunkPlugin({
       //   name: ['manifest'],
       //   minChunks: Infinity,
@@ -454,7 +455,7 @@ module.exports = function (options) {
 
   };
 
-  if (options.hasOwnProperty('sim')) {
+  if (isSim) {
     /**
      * In "Simulation mode" the libraries are consumed from a compiled and built version.
      *
@@ -468,11 +469,22 @@ module.exports = function (options) {
      * before publishing but without the need for npm link and other crazy things so webpack and AOT
      * will consume the right thing.
      */
-    console.log('\n==============================================================================');
-    console.log('  LIBRARY RUNNING IN SIMULATION MODE - WEBPACK WILL USE THE COMPILED LIBRARY');
-    console.log('==============================================================================\n');
+    util.log('==============================================================================', 1, 1)
+      .log('  LIBRARY RUNNING IN SIMULATION MODE - WEBPACK WILL USE THE COMPILED LIBRARY')
+      .log(`==============================================================================`, 2);
 
     util.applySimulation(webpackConfig, isProd);
+
+    class SelfCleanUp {
+      apply(compiler) {
+        compiler.plugin('after-emit', (compilation, done) => {
+          util.cleanup().catch(e => {}).then( () => done() );
+        });
+      }
+    }
+
+    webpackConfig.plugins.push(new SelfCleanUp());
+
   }
 
   return webpackConfig;

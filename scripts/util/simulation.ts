@@ -1,11 +1,10 @@
 import * as Path from 'path';
-import * as del from 'del';
 import * as tsConfigLoader from 'tsconfig';
 import { CompilerOptions, MapLike } from 'typescript';
 import { Configuration, NewModule, NewResolve, Rule, Plugin } from 'webpack';
 import { NgcWebpackPlugin } from 'ngc-webpack';
 
-import { root, FS_REF, jsonPatch } from './fs';
+import { root, FS_REF, jsonPatch, cleanOnNext } from './fs';
 import { tsConfigPaths, tsConfigPathsForSimulation } from './config';
 
 function findLoader(rule: any, name: string): any {
@@ -85,7 +84,7 @@ export function applySimulation(webpackConfig: Configuration, isProd: boolean): 
   const atlLoader = findLoader((webpackConfig.module as NewModule).rules, 'awesome-typescript-loader');
   const tsConfigPath = root(atlLoader.options.configFileName || 'tsconfig.json');
   assignNonLibPaths(tsConfigPath, paths);
-  atlLoader.options.paths = paths;
+  // atlLoader.options.paths = paths;
 
 
 
@@ -104,17 +103,34 @@ export function applySimulation(webpackConfig: Configuration, isProd: boolean): 
     const ngcWebpackPluginInstance = findPlugin(webpackConfig.plugins, NgcWebpackPlugin);
     const simulatorTsConfigPath = Path.join(Path.dirname(tsConfigPath), '.tsconfig.webpack.sim.json');
 
+    // add the libraries (root, no plugins) to the exclude section so they are not included
+    // in the type checking done by AOT compiler.
+    // They are not used anyway and when using augmentation duplicates might create failures
+    atlLoader.options.configFileName = simulatorTsConfigPath;
+    const exclude = tsConfigLoader.loadSync(tsConfigPath).config.exclude;
+    Object
+      .keys(paths)
+      .map( key => `src/${key.split('/')[0]}/**/*.ts`)
+      .forEach( key => {
+        if (exclude.indexOf(key) === -1 ) {
+          exclude.push(key);
+        }
+      });
+
     /*
         Create a new "tsconfig" json file, extending the original one used by ATL but with
         different paths, we use the same paths we created in the first phase.
      */
-    jsonPatch<{ extends: string, compilerOptions: CompilerOptions }>(tsConfigPath)
+    jsonPatch<{ exclude: string[], extends: string, compilerOptions: CompilerOptions }>(tsConfigPath)
       .update( tsConfig => {
         tsConfig.extends = `./${Path.basename(tsConfigPath, '.json')}`;
+        tsConfig.exclude = exclude;
         tsConfig.compilerOptions.paths = paths;
       })
       .save(simulatorTsConfigPath);
 
+
+    cleanOnNext(simulatorTsConfigPath);
 
     /*
         Replacing the original NgcWebpackPlugin instance with a new instance pointing at our
@@ -126,9 +142,7 @@ export function applySimulation(webpackConfig: Configuration, isProd: boolean): 
         webpackConfig.plugins.indexOf(ngcWebpackPluginInstance),
         1,
         new NgcWebpackPlugin(Object.assign({}, ngcWebpackPluginInstance.options, {
-          tsConfig: simulatorTsConfigPath,
-          onCompilationSuccess: () => del.sync(simulatorTsConfigPath),
-          onCompilationError: () => del.sync(simulatorTsConfigPath)
+          tsConfig: Path.basename(simulatorTsConfigPath)
         }))
       );
   }

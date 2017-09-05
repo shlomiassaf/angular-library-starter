@@ -24,6 +24,7 @@ const NormalModuleReplacementPlugin = require('webpack/lib/NormalModuleReplaceme
 const ProvidePlugin = require('webpack/lib/ProvidePlugin');
 const UglifyJsPlugin = require('webpack/lib/optimize/UglifyJsPlugin');
 const OptimizeJsPlugin = require('optimize-js-plugin');
+const PreloadWebpackPlugin = require('preload-webpack-plugin');
 
 /**
  * Webpack Constants
@@ -129,6 +130,10 @@ module.exports = function (options) {
      * See: http://webpack.github.io/docs/configuration.html#plugins
      */
     plugins: [
+      new PreloadWebpackPlugin({
+        rel: 'preload',
+        include: 'all'
+      }),
 
       /**
        * Webpack plugin to optimize a JavaScript file for faster initial load
@@ -159,6 +164,8 @@ module.exports = function (options) {
        */
       // NOTE: when adding more properties make sure you include them in custom-typings.d.ts
       new DefinePlugin({
+        "VERSION": JSON.stringify(require(helpers.root('package.json')).version),
+        "NG_VERSION": JSON.stringify(require(helpers.root('node_modules', '@angular', 'core', 'package.json')).version),
         'ENV': JSON.stringify(METADATA.ENV),
         'HMR': METADATA.HMR,
         'process.env': {
