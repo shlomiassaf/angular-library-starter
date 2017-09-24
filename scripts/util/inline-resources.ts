@@ -2,7 +2,7 @@
 /* tslint:disable:no-eval */
 
 import {dirname, join} from 'path';
-import {readFileSync, writeFileSync} from 'fs';
+import {readFileSync, writeFileSync, existsSync} from 'fs';
 import {sync as glob} from 'glob';
 import * as del from 'del';
 
@@ -26,7 +26,7 @@ export function inlineResources(filePath: string, deleteResource: boolean = fals
 function inlineTemplate(fileContent: string, filePath: string, deleteResource: boolean = false) {
   return fileContent.replace(/templateUrl:\s*'([^']+?\.html)'/g, (_match, templateUrl) => {
     const templatePath = join(dirname(filePath), templateUrl);
-    const templateContent = loadResourceFile(templatePath);
+    const templateContent = loadResourceFile(templatePath) || "";
 
     if (deleteResource === true) {
       del.sync(templatePath);
@@ -46,7 +46,7 @@ function inlineStyles(fileContent: string, filePath: string, deleteResource: boo
     const styleContents = styleUrls
       .map(url => join(dirname(filePath), url))
       .map(path => {
-        const styleContent = loadResourceFile(path);
+        const styleContent = loadResourceFile(path) || "";
         if (deleteResource === true) {
           del.sync(path);
         }
@@ -64,7 +64,11 @@ function removeModuleId(fileContent: string) {
 
 /** Loads the specified resource file and drops line-breaks of the content. */
 function loadResourceFile(filePath: string): string {
-  return readFileSync(filePath, 'utf-8')
-    .replace(/([\n\r]\s*)+/gm, ' ')
-    .replace(/"/g, '\\"');
+  
+  if (existsSync(filePath))
+      return readFileSync(filePath, 'utf-8')
+        .replace(/([\n\r]\s*)+/gm, ' ')
+        .replace(/"/g, '\\"');
+    else
+      return null;
 }
