@@ -3,7 +3,6 @@
   "description": "Common Library",
   "keywords": [ "corp", "common" ],
   "libConfig": {
-    "entry": "common",
-    "inlineResources": true
+    "entry": "common"
   }
 }

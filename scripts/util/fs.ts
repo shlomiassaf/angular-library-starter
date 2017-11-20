@@ -28,11 +28,10 @@ const cleanOnNextItems: string[] = [];
  * Relative paths are relative to root.
  * @param filePath
  */
-export function cleanOnNext(filePath: string): void {
-  if (!Path.isAbsolute(filePath)) {
-    filePath = root(filePath);
-  }
-  cleanOnNextItems.push(filePath);
+export function cleanOnNext(...filePath: string[]): void {
+  filePath.forEach( p => {
+    cleanOnNextItems.push(Path.isAbsolute(p) ? p :  root(p));
+  });
 }
 
 export function cleanup(): Promise<string[]> {

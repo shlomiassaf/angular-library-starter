@@ -1,8 +1,16 @@
-import * as Path from 'path';
 import * as chalk from 'chalk';
 const runSequence = require('run-sequence');
 
+import { validateDeps } from '../util/validate_deps';
 import * as util from '../util';
+
+const validation = validateDeps();
+if (validation.error) {
+  throw new Error(validation.error.join('\n'));
+}
+if (validation.warn) {
+  console.warn(validation.warn.join('\n'));
+}
 
 function filterPackageSelection(packages) {
   const idx = process.argv.indexOf('--select');
@@ -76,7 +84,6 @@ Compiling library ${curPkg.dirName}
       '!build:fesm:es5',
       '!build:rollup:umd',
       '!minifyAndGzip',
-      '!pureAnnotation',
       '!manifest',
       err => this.handleRunEnd(err)
     );

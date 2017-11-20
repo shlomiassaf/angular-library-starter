@@ -1,8 +1,5 @@
 {
   "version": "1.0.0",
   "description": "Sample Library",
-  "keywords": [ ],
-  "libConfig": {
-    "inlineResources": true
-  }
+  "keywords": [ ]
 }
