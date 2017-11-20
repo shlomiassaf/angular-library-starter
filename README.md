@@ -261,29 +261,6 @@ export interface LocalLibConfig {
   entry?: string;
 
   /**
-   * When true, all javascript files (TS output) with Angular components that has a URI template resources
-   * (templateUrl with HTML and styleUrls with css, scss) will get be inlined.
-   *
-   * i.e. "templateUrl" will get replaced with "template" and "styleUrls" with "styles".
-   *
-   * This is similar to what "angular2-template-loader" does but instead of a require reference, it will be the raw template.
-   *
-   * Each resource will go through webpack's loader chain, this means you can use scss and it will get processed.
-   * Any loader you put in the chain will work so you can achieve complex things.
-   *
-   * ADDITIONALLY, all of angular's "metadata.json" files will go through the same process
-   * inlining the resources into them.
-   *
-   * > The end result after compilation is 100% similar to result in dev mode,
-   * as long as the loaders and their order are identical in both configurations.
-   *
-   * > Setting "inlineResources" to true will activate template code generation by the angular compiler (skipTemplateCodegen=false)
-   * Template code generation is turned off by default so make sure to active "inlineResources" if you are
-   * using "templateUrl" / "styleUrls" in your library components.
-   */
-  inlineResources?: boolean;
-
-  /**
    * Internal extensions for the library.
    * If a library declares a "libExtensions" property in it's internal package.json file
    * it is considered as instructions for creating internal umd bundles.
@@ -347,35 +324,6 @@ angular-library-starter/
  │          ├──build_hooks.ts
  │          └──package.json
 ```
-
-### Inline resources
-When writing components that has html and style templates it is best to use `templateUrl` and `styleUrls` or our component becomes unreadable.
-
-This requires some work since the AOT compiler does not inline them for us.
-
-While this is not a trivial task the starter got you covered.
-And thats not all, before inlining the resources it will also pass them through the
-loader chain so SCSS, CSS and HTML files will all go through your favourite processors.
-
-Due to the internals of the AOT compiler it is not enough just to inline the resources
-into the JS source code but also to inline them into the `metadata.json` files. The starter will do that as well.
-
-To instruct the starter to inline a library on build you need to set the `inlineResources` property to true
-in the **local configuration**
-
-```json
-{
-  "version": "1.0.0",
-  "description": "Sample Library",
-  "keywords": [ ],
-  "libConfig": {
-    "inlineResources": true
-  }
-}
-
-```
-
-> Inlining is disabled by default, make sure you enable if your library has components with resources.
 
 ### Multiple Libraries
  TODO - most of it is already explained.
