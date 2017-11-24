@@ -28,9 +28,6 @@
       ],
       "my-lib/src/*": [
         "my-lib/src/*"
-      ],
-      "@*": [
-        "demo/modules/@*"
       ]
     }
   },
